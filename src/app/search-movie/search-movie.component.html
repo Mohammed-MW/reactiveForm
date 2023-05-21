@@ -1,0 +1,44 @@
+<form [formGroup]="newMovie" (ngSubmit)="createFilm()">
+    <div formGroupName="Info">
+        <input type="text" placeholder="Identifiant" formControlName="identifiant">
+        <br><br>
+        <input type="text" placeholder="Titre" formControlName="title">
+        <br><br>
+        <div *ngIf="submitted && newMovie.get('Info').hasError('identifiantOuTitreRequis')">
+            Veuillez renseigner l'identifiant ou le titre.
+        </div><br><br>
+    </div>
+
+    <label> Choisir le type : </label><br><br>
+    <select formControlName="type">
+        <option value="" disabled selected hidden>Type</option>
+        <option value="film">Film</option>
+        <option value="serie">Série</option>
+        <option value="episode">Épisode</option>
+    </select>
+    <br><br>
+
+
+    <label for="myDate"> Date de sortie : </label><br><br>
+    <input id="myDate" type="date" formControlName="realeaseDate">
+    <div *ngIf="submitted && newMovie.get('realeaseDate').invalid">
+        L'année doit être comprise entre 1900 et {{ currentYear }}.
+    </div>
+    <br><br>
+
+    <label> Choisir le type de fiche : </label> <br><br>
+    <select formControlName="fiche">
+        <option value="" disabled selected hidden>Fiche</option>
+        <option value="longue">Longue</option>
+        <option value="courte">Courte</option>
+    </select>
+    <br><br>
+
+
+    <button>Create Movie</button>
+</form>
+
+<!-- <div
+    *ngIf="newMovie.get('Info').hasError('InfoRequired') && (newMovie.get('Info').dirty || newMovie.get('Info').touched)">
+    L'un des deux champs 'Identifiant' ou 'Titre' doit être renseigné.
+</div> -->
